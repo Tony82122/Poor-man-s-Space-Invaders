@@ -1,27 +1,40 @@
 ﻿import sys
 import pygame
 
-from Settings import Settings
+from Settings.Settings import Settings
+from Ship.Ship import Ship
 
 
 class AlienInvaders:
     def __init__(self):
-        """ overall class to manage game assets and behaviour"""
+        """Initialize the game and create game resources."""
         pygame.init()
-        self.settings = Settings
-
-        self.screen = pygame.display.set_mode((self.settings.screen_width,self.settings.screen_height))
+        self.settings = Settings()  # Instantiate Settings
+        self.screen = pygame.display.set_mode(
+            (self.settings.screen_width, self.settings.screen_height))
         pygame.display.set_caption("Poor mans' Space Invaders")
-        self.bg_color = (230,230,230)
 
-        def run_game(self):
-            while True:
-                for event in pygame.event.get():
-                    if event.type == pygame.quit():
-                        sys.exit()
-                        self.screen.fill(self.Settings.bg_color)
-                        pygame.display.flip()
+        self.ship = Ship(self)  # Instantiate Ship
 
-                        if __name__ == '__main__':
-                            ai = AlienInvaders()
-                            ai.run_game()
+    def run_game(self):
+        """Start main game ."""
+        while True:
+            self._check_events()
+            self._update_screen()
+
+    def _check_events(self):
+        """keypresses and mouse events."""
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                sys.exit()
+
+    def _update_screen(self):
+        """Update images on the screen, and flip to the new screen."""
+        self.screen.fill(self.settings.bg_color)
+        self.ship.blitme()
+        pygame.display.flip()
+
+
+if __name__ == '__main__':
+    ai = AlienInvaders()
+    ai.run_game()
