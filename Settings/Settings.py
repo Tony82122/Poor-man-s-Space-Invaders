@@ -1,4 +1,5 @@
-﻿
+﻿import pygame
+
 class Settings:
     def __init__(self):
         """ initialising the game settings"""
