@@ -10,7 +10,7 @@ class Ship:
         # Load the ship image and get rect
         self.image = pygame.image.load(
             r'C:\Users\tony8\PycharmProjects\Alien_Invasion\Ship_converted.bmp')
-        desired_width = 150
+        desired_width = 65
         height = int(
             self.image.get_height() * desired_width / self.image.get_width())
         self.image = pygame.transform.scale(self.image, (desired_width, height))

@@ -21,18 +21,19 @@ class AlienInvaders:
         while True:
             self._check_events()
             self._update_screen()
+            self._update_screen()
 
     def _check_events(self):
         """keypresses and mouse events."""
         for event in pygame.event.get():
-            if event.type == pygame.QUIT:
+            if event.type == pygame.K_ESCAPE:
                 sys.exit()
             elif event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_RIGHT:
                     self.ship.moving_right = True
                 elif event.type == pygame.KEYUP:
-                    if event.key == pygame.K_RIGHT:
-                        self.ship.moving_right = False
+                    if event.key == pygame.K_LEFT:
+                        self.ship.moving_left = True
 
                 self.ship.rect.x += 10
 
