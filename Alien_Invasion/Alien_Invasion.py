@@ -1,8 +1,8 @@
 ﻿import sys
 import pygame
 
-from Settings.Settings import Settings
-from Ship.Ship import Ship
+from Settings import Settings
+from Ship import Ship
 
 
 class AlienInvaders:
@@ -20,22 +20,34 @@ class AlienInvaders:
         """Start main game ."""
         while True:
             self._check_events()
-            self._update_screen()
+            self.ship.update()
             self._update_screen()
 
     def _check_events(self):
-        """keypresses and mouse events."""
+        """Handle keypresses and mouse events."""
         for event in pygame.event.get():
-            if event.type == pygame.K_ESCAPE:
+            if event.type == pygame.QUIT:
                 sys.exit()
             elif event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_RIGHT:
-                    self.ship.moving_right = True
-                elif event.type == pygame.KEYUP:
-                    if event.key == pygame.K_LEFT:
-                        self.ship.moving_left = True
+                self._check_keydown_events(event)
+            elif event.type == pygame.KEYUP:
+                self._check_keyup_events(event)
 
-                self.ship.rect.x += 10
+    def _check_keydown_events(self, event):
+        """Respond to keypresses."""
+        if event.key == pygame.K_RIGHT:
+            self.ship.moving_right = True
+        elif event.key == pygame.K_LEFT:
+            self.ship.moving_left = True
+        elif event.key == pygame.K_ESCAPE:
+            sys.exit()
+
+    def _check_keyup_events(self, event):
+        """Respond to key releases."""
+        if event.key == pygame.K_RIGHT:
+            self.ship.moving_right = False
+        elif event.key == pygame.K_LEFT:
+            self.ship.moving_left = False
 
     def _update_screen(self):
         """Update images on the screen, and flip to the new screen."""
