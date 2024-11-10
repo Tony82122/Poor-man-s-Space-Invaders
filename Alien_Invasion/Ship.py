@@ -1,6 +1,5 @@
 ﻿import os
 import pygame
-from Settings import Settings
 
 class Ship:
     def __init__(self, ai_game):
@@ -21,7 +20,8 @@ class Ship:
             raise
 
         desired_width = 50
-        height = int(self.image.get_height() * desired_width / self.image.get_width())
+        height = int(
+            self.image.get_height() * desired_width / self.image.get_width())
         self.image = pygame.transform.scale(self.image, (desired_width, height))
         self.rect = self.image.get_rect()
 
