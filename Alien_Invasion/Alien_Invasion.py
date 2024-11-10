@@ -1,6 +1,7 @@
 ﻿import sys
 import pygame
 
+from Bullet import Bullet
 from Settings import Settings
 from Ship import Ship
 
@@ -15,12 +16,14 @@ class AlienInvaders:
         pygame.display.set_caption("Poor mans' Space Invaders")
 
         self.ship = Ship(self)  # Instantiate Ship
+        self.bullets = pygame.sprite.Group()
 
     def run_game(self):
         """Start main game ."""
         while True:
             self._check_events()
             self.ship.update()
+            self.bullets.update()
             self._update_screen()
 
     def _check_events(self):
@@ -41,6 +44,8 @@ class AlienInvaders:
             self.ship.moving_left = True
         elif event.key == pygame.K_ESCAPE:
             sys.exit()
+        elif event.key == pygame.K_SPACE:
+            self._fire_bullet()
 
     def _check_keyup_events(self, event):
         """Respond to key releases."""
@@ -53,7 +58,14 @@ class AlienInvaders:
         """Update images on the screen, and flip to the new screen."""
         self.screen.fill(self.settings.bg_color)
         self.ship.blitme()
+        for bullet in self.bullets.sprites():
+            bullet.draw_bullet()
         pygame.display.flip()
+
+    def _fire_bullet(self):
+        """Create a new bullet and add it to the bullets group."""
+        new_bullet = Bullet(self)
+        self.bullets.add(new_bullet)
 
 
 if __name__ == '__main__':
