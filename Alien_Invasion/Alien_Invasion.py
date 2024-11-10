@@ -8,7 +8,7 @@ from Ship import Ship
 
 class AlienInvaders:
     def __init__(self):
-        """Initialize the game and create game resources."""
+        """create game resources."""
         pygame.init()
         self.settings = Settings()  # Instantiate Settings
         self.screen = pygame.display.set_mode(
@@ -27,7 +27,7 @@ class AlienInvaders:
             self._update_screen()
 
     def _check_events(self):
-        """Handle keypresses and mouse events."""
+        """Handle keypresses and events."""
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 sys.exit()

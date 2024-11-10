@@ -1,6 +1,6 @@
 ﻿class Settings:
     def __init__(self):
-        """ initialising the game settings"""
+        """ start game settings"""
         # screen settings
 
         self.screen_width = 600
