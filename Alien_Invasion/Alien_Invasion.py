@@ -174,9 +174,13 @@ class AlienInvaders:
                              (3 * alien_height) - ship_height)
         number_rows = available_space_y // (2 * alien_height)
 
-        # Create the full fleet of aliens
-        for row_number in range(number_rows):
-            for alien_number in range(number_aliens_x):
+        # Reduce the number of aliens - only create 3 rows and 6 aliens per row
+        max_rows = min(3, number_rows)
+        max_aliens_per_row = min(6, number_aliens_x)
+
+        # Create the fleet of aliens
+        for row_number in range(max_rows):
+            for alien_number in range(max_aliens_per_row):
                 self._create_alien(alien_number, row_number)
 
     def _create_alien(self, alien_number, row_number):
