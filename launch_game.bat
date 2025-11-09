@@ -6,26 +6,27 @@ echo   Starting game...
 echo ========================================
 echo.
 
-cd /d "%~dp0\Alien_Invasion"
+REM Use the virtual environment Python
+set PYTHON_PATH=%~dp0.venv\Scripts\python.exe
 
-REM Check if pygame is installed
-python -c "import pygame" 2>nul
-if errorlevel 1 (
-    echo Pygame not found! Installing...
-    pip install pygame
-    if errorlevel 1 (
-        echo Error: Could not install pygame
-        echo Please run: pip install pygame
-        pause
-        exit /b 1
-    )
+REM Check if virtual environment exists
+if not exist "%PYTHON_PATH%" (
+    echo Virtual environment not found!
+    echo Using system Python instead...
+    set PYTHON_PATH=python
 )
 
+cd /d "%~dp0Alien_Invasion"
+
 echo Launching game...
-python Alien_Invasion.py
+"%PYTHON_PATH%" Alien_Invasion.py
 
 if errorlevel 1 (
     echo.
     echo Error: Game encountered an error
+    echo.
+    echo Make sure pygame is installed:
+    echo   pip install pygame
+    echo.
     pause
 )
